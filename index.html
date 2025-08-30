@@ -18,151 +18,93 @@
   <!-- Estilos -->
   <link rel="stylesheet" href="style.css" />
 
-  <style>
-    h1, h2, h3 { font-family: 'Diplomata SC', cursive; }
-  </style>
-
-  <!-- Libs para PDF e Tabelas -->
+  <!-- Libs PDF e QRCode -->
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 </head>
 <body>
-  <!-- Tela de login -->
+
+  <!-- LOGIN -->
   <section id="tela-login" class="tela ativa">
-    <div class="logo-container">
-      <img src="logo.png" alt="Logo Baco BJJ" class="logo-grande" />
-    </div>
-    <div class="login-box">
+    <h1>Login</h1>
+    <form>
       <input type="text" id="usuario" placeholder="Usuário" />
       <input type="password" id="senha" placeholder="Senha" />
-      <button id="btnLogin">Entrar</button>
-      <button id="btnVisitante">Entrar como Visitante</button>
+      <button type="button" id="btnLogin">Entrar</button>
+      <button type="button" id="btnVisitante">Entrar como Visitante</button>
+    </form>
+  </section>
+
+  <!-- INICIAL LOGADO -->
+  <section id="tela-inicial-logado" class="tela">
+    <h1>Bem-vindo ao Baco BJJ</h1>
+    <div class="menu">
+      <button onclick="mostrarTela('menuChamada')">Chamada</button>
+      <button id="btnMenuAlunos" onclick="mostrarTela('menuAlunos')">Alunos</button>
+      <button onclick="enviarSugestao()">Sugestões</button>
+      <button id="btnInstalarApp">Instalar App</button>
+      <button id="btnDownloadJSON" onclick="downloadAlunosJSON()">Download JSON</button>
     </div>
   </section>
 
-  <!-- Tela inicial logado -->
-  <section id="tela-inicial-logado" class="tela">
-    <header>
-      <h1>
-        <img src="logo.png" class="logo-titulo" alt="Logo"/>
-        Baco BJJ
-        <img src="logo.png" class="logo-titulo" alt="Logo"/>
-      </h1>
-    </header>
-    <main>
-      <button onclick="mostrarTela('menuChamada')">Chamada</button>
-      <button id="btnMenuAlunos" onclick="mostrarTela('menuAlunos')" style="display:none;">Alunos</button>
-      <button onclick="enviarSugestao()">Sugestões</button>
-      <button id="btnInstalarApp" style="display:none;">Instalar App</button>
-      <button id="btnDownloadJSON" onclick="downloadAlunosJSON()" style="display:none;">Download Alunos.json</button>
-    </main>
-  </section>
-
-  <!-- Tela visitante -->
+  <!-- INICIAL VISITANTE -->
   <section id="tela-inicial-visitante" class="tela">
-    <header>
-      <h1>
-        <img src="logo.png" class="logo-titulo" alt="Logo"/>
-        Bem Vindo Ao Baco, OSS!
-        <img src="logo.png" class="logo-titulo" alt="Logo"/>
-      </h1>
-    </header>
-    <main>
-      <img src="equipe1.jpg" alt="Equipe Baco BJJ" class="foto-equipe" />
+    <h1>Bem-vindo Visitante</h1>
+    <div class="menu">
       <button onclick="mostrarTela('quemSomos')">Quem Somos</button>
-      <button onclick="abrirInstagram()">Instagram</button>
-      <div class="mapa-container">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3707.1790216650966!2d-57.876796299999995!3d-21.695771399999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x947aeee73408dafb%3A0xefead8b16579cbba!2sR.%20Salim%20Cafure%20Filho%2C%20130%20-%20Florestal%2C%20Porto%20Murtinho%20-%20MS%2C%2079280-000!5e0!3m2!1sen!2sbr!4v1756486956328!5m2!1sen!2sbr"
-          width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
-    </main>
+      <button onclick="window.open('https://instagram.com/bacobjj_','_blank')">Instagram</button>
+    </div>
+    <img src="equipe1.jpg" alt="Equipe Baco BJJ" class="foto-equipe" />
   </section>
 
-  <!-- Quem Somos -->
+  <!-- QUEM SOMOS -->
   <section id="quemSomos" class="tela">
-    <header>
-      <h1>
-        <img src="logo.png" class="logo-titulo" alt="Logo"/>
-        Quem Somos
-        <img src="logo.png" class="logo-titulo" alt="Logo"/>
-      </h1>
-    </header>
-    <main>
-      <p>
-        Somos uma escola de Jiu-Jitsu dedicada a formar atletas e cidadãos
-        através da disciplina, respeito e dedicação. Nosso objetivo é ensinar a
-        arte suave para todas as idades, promovendo saúde, confiança e espírito
-        de equipe.
-      </p>
-      <button onclick="voltarInicio()">Voltar</button>
-    </main>
+    <h1>Quem Somos</h1>
+    <p>Somos uma escola de Jiu-Jitsu dedicada a formar atletas e cidadãos...</p>
+    <button onclick="voltarInicio()">Voltar</button>
   </section>
 
-  <!-- Menu Chamada -->
+  <!-- MENU CHAMADA -->
   <section id="menuChamada" class="tela">
-    <header>
-      <h1>
-        <img src="logo.png" class="logo-titulo" alt="Logo"/>
-        Chamada
-        <img src="logo.png" class="logo-titulo" alt="Logo"/>
-      </h1>
-    </header>
-    <main>
-      <input type="password" id="senhaTurma" placeholder="Senha da turma" />
-      <button onclick="abrirChamada('Iniciantes')">Iniciantes</button>
-      <button onclick="abrirChamada('Intermediarios')">Intermediários</button>
-      <button onclick="abrirChamada('Graduados')">Graduados</button>
-      <button onclick="voltarInicio()">Voltar</button>
-    </main>
+    <h1>Chamada</h1>
+    <form>
+      <input type="password" id="senhaTurma" placeholder="Senha da Turma" />
+      <div class="menu">
+        <button type="button" onclick="abrirChamada('Iniciantes')">Iniciantes</button>
+        <button type="button" onclick="abrirChamada('Intermediarios')">Intermediários</button>
+        <button type="button" onclick="abrirChamada('Graduados')">Graduados</button>
+      </div>
+      <button type="button" onclick="voltarInicio()">Voltar</button>
+    </form>
   </section>
 
-  <!-- Tela Chamada -->
+  <!-- TELA CHAMADA -->
   <section id="chamada" class="tela">
-    <header>
-      <h1 id="tituloChamada">
-        <img src="logo.png" class="logo-titulo" alt="Logo"/>
-        Registro de Presença
-        <img src="logo.png" class="logo-titulo" alt="Logo"/>
-      </h1>
-    </header>
-    <main>
-      <ul id="lista-alunos"></ul>
-      <h2>Relatório</h2>
-      <textarea id="texto-relatorio" placeholder="Digite algum relatório ou observação do treino..."></textarea>
-      <button id="salvarChamada">Salvar e enviar por e-mail</button>
-      <button onclick="voltarInicio()">Voltar</button>
-    </main>
+    <h1 id="tituloChamada">Registro de Presença</h1>
+    <ul id="lista-alunos"></ul>
+    <h2>Relatório</h2>
+    <textarea id="texto-relatorio" placeholder="Digite observações..."></textarea>
+    <button id="salvarChamada">Salvar e Enviar por E-mail</button>
+    <button onclick="voltarInicio()">Voltar</button>
   </section>
 
-  <!-- Menu Alunos -->
+  <!-- MENU ALUNOS -->
   <section id="menuAlunos" class="tela">
-    <header>
-      <h1>
-        <img src="logo.png" class="logo-titulo" alt="Logo"/>
-        Alunos
-        <img src="logo.png" class="logo-titulo" alt="Logo"/>
-      </h1>
-    </header>
-    <main>
+    <h1>Alunos</h1>
+    <div class="menu">
       <button id="btnNovoAluno" onclick="mostrarTela('novoAluno')">Novo Aluno</button>
       <button id="btnPesquisarAluno" onclick="mostrarTela('pesquisarAluno')">Pesquisar / Editar</button>
-      <button id="btnRelatorioAlocados" onclick="gerarRelatorioAlocadosPDF()">Relatório de Estudantes Alocados</button>
-      <button id="btnRelatorioGeral" onclick="gerarRelatorioGeralPDF()">Relatório Geral</button>
+      <button onclick="gerarRelatorioAlocadosPDF()">Relatório Alocados</button>
+      <button onclick="gerarRelatorioGeralPDF()">Relatório Geral</button>
       <button onclick="voltarInicio()">Voltar</button>
-    </main>
+    </div>
   </section>
 
-  <!-- Cadastro / Edição Aluno -->
+  <!-- CADASTRO / EDIÇÃO -->
   <section id="novoAluno" class="tela">
-    <header>
-      <h1>
-        <img src="logo.png" class="logo-titulo" alt="Logo"/>
-        Cadastro / Edição de Aluno
-        <img src="logo.png" class="logo-titulo" alt="Logo"/>
-      </h1>
-    </header>
-    <main>
+    <h1>Cadastro / Edição de Aluno</h1>
+    <form>
       <input type="text" id="alunoNome" placeholder="Nome completo" />
       <input type="text" id="responsavel" placeholder="Responsável" />
       <input type="date" id="dataNascimento" placeholder="Data de nascimento" />
@@ -177,7 +119,7 @@
       </select>
       <div class="linha-grad">
         <select id="graduacao"></select>
-        <span id="badgeFaixa" class="badge-faixa">Faixa</span>
+        <span id="badgeFaixa">Faixa</span>
       </div>
       <select id="grau">
         <option value="0">Grau 0</option>
@@ -186,38 +128,32 @@
         <option value="3">Grau 3</option>
         <option value="4">Grau 4</option>
       </select>
-      <div class="botoes-form">
-        <button id="btnSalvarAluno">Salvar</button>
-        <button id="btnCancelarEdicao" type="button" onclick="cancelarEdicao()" style="display:none;">Cancelar edição</button>
-        <button onclick="mostrarTela('menuAlunos')">Voltar</button>
+      <div class="menu">
+        <button type="button" id="btnSalvarAluno">Salvar</button>
+        <button type="button" id="btnCancelarEdicao" onclick="cancelarEdicao()">Cancelar Edição</button>
+        <button type="button" onclick="mostrarTela('menuAlunos')">Voltar</button>
       </div>
-    </main>
+    </form>
   </section>
 
-  <!-- Pesquisa / Edição Aluno -->
+  <!-- PESQUISA / EDIÇÃO -->
   <section id="pesquisarAluno" class="tela">
-    <header>
-      <h1>
-        <img src="logo.png" class="logo-titulo" alt="Logo"/>
-        Pesquisar / Editar
-        <img src="logo.png" class="logo-titulo" alt="Logo"/>
-      </h1>
-    </header>
-    <main>
-      <div style="display:flex; justify-content:center; gap:8px; align-items:center;">
-        <input type="text" id="buscarAluno" placeholder="Digite o nome do aluno" />
-        <button id="btnExecutarPesquisa">Pesquisar</button>
-      </div>
-      <ul id="lista-pesquisa"></ul>
-      <div id="detalhes-aluno"></div>
-      <button onclick="mostrarTela('menuAlunos')">Voltar</button>
-    </main>
+    <h1>Pesquisar / Editar</h1>
+    <div class="menu">
+      <input type="text" id="buscarAluno" placeholder="Digite o nome do aluno" />
+      <button type="button" id="btnExecutarPesquisa">Pesquisar</button>
+    </div>
+    <ul id="lista-pesquisa"></ul>
+    <div id="detalhes-aluno"></div>
+    <button onclick="mostrarTela('menuAlunos')">Voltar</button>
   </section>
 
   <footer>
-    <p>&copy; 2025 Baco BJJ - By Helder Holanda</p>
+    <p>&copy; 2025 Baco BJJ — By Helder Holanda</p>
   </footer>
 
+  <!-- SCRIPT -->
   <script src="script.js" defer></script>
+
 </body>
 </html>
