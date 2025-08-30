@@ -2,13 +2,13 @@
 const usuarios = [
   { usuario: "hholanda",  senha: "c4l1i3q5", nivel: "master" },
   { usuario: "mmaggione", senha: "270229", nivel: "instrutor" },
-  { usuario: "hgodoi",    senha: "12345", nivel: "instrutor" },
+  { usuario: "hgodoi",    senha: "130608", nivel: "instrutor" },
   { usuario: "baco",      senha: "12345", nivel: "instrutor" }
 ];
 
 // ====== SENHAS POR TURMA ======
 const SENHAS_TURMAS = {
-  Iniciantes: "ini123",
+  Iniciantes: "130608",
   Intermediarios: "270229",
   Graduados: "270229"
 };
@@ -340,7 +340,26 @@ function downloadAlunosJSON(){
 // ====== SUGESTÃO ======
 function enviarSugestao(){
   const msg = prompt("Digite sua sugestão:");
-  if(msg) alert("Sugestão enviada! (Simulação, não há backend)");
+  if(msg){
+    const assunto = encodeURIComponent("Sugestão - " + ACADEMIA.nome);
+    const corpo = encodeURIComponent(msg);
+    window.location.href = `mailto:${ACADEMIA.email}?subject=${assunto}&body=${corpo}`;
+  }
+}
+
+// ====== CHAMADA EMAIL ======
+function enviarChamadaEmail(){
+  const checked = Array.from(document.querySelectorAll("#lista-alunos input[type=checkbox]:checked"));
+  if(checked.length === 0){ alert("Nenhum aluno selecionado!"); return; }
+
+  const nomes = checked.map(c=>c.dataset.nome);
+  const rel = document.getElementById("texto-relatorio")?.value || "";
+  const assunto = encodeURIComponent(`Presença - ${turmaAtual} - ${ACADEMIA.nome}`);
+  const corpo = encodeURIComponent(`Alunos presentes:\n${nomes.join("\n")}\n\nRelatório:\n${rel}`);
+  window.location.href = `mailto:${ACADEMIA.email}?subject=${assunto}&body=${corpo}`;
+
+  limparChamadaUI();
+  voltarInicio();
 }
 
 // ====== INSTALL APP ======
@@ -385,15 +404,5 @@ window.addEventListener("DOMContentLoaded", async ()=>{
   document.getElementById("graduacao")?.addEventListener("change", atualizarBadgeFaixa);
   document.getElementById("btnSalvarAluno")?.addEventListener("click", salvarAluno);
   document.getElementById("btnExecutarPesquisa")?.addEventListener("click", pesquisarAluno);
-  document.getElementById("salvarChamada")?.addEventListener("click", ()=>{
-    const checked = Array.from(document.querySelectorAll("#lista-alunos input[type=checkbox]:checked"));
-    if(checked.length===0) alert("Nenhum aluno selecionado!");
-    else {
-      const nomes = checked.map(c=>c.dataset.nome);
-      const rel = document.getElementById("texto-relatorio")?.value||"";
-      alert(`Presença marcada: ${nomes.join(", ")}\nRelatório: ${rel}\n(Simulação, não envia email)`);
-      limparChamadaUI();
-      voltarInicio();
-    }
-  });
+  document.getElementById("salvarChamada")?.addEventListener("click", enviarChamadaEmail);
 });
