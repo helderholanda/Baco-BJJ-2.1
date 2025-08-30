@@ -7,8 +7,8 @@
     "telefoneResponsavel": "",
     "email": "",
     "turma": "Graduados",
-    "graduacao": "",
-    "grau": 0,
+    "graduacao": "Azul",
+    "grau": 4,
     "dataMatricula": "28/08/2025"
   },
   {
@@ -150,7 +150,7 @@
     "telefone": "679984531842",
     "telefoneResponsavel": "",
     "email": "talithacoronel@gmail.com",
-    "turma": "Iniciantes",
+    "turma": "Intermediarios",
     "graduacao": "Branca",
     "grau": 3,
     "dataMatricula": "30/08/2025"
