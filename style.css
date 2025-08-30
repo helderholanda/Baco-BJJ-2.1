@@ -153,3 +153,14 @@ footer {
   .logo-grande { width: 120px; height: 120px; }
   button { font-size: 0.9rem; padding: 12px; }
 }
+
+/* Estilo do mapa Google na tela de visitante */
+#tela-inicial-visitante iframe {
+  border-radius: 12px;       /* bordas arredondadas */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* sombra suave */
+  margin-top: 15px;          /* espaço acima */
+  margin-bottom: 20px;       /* espaço abaixo */
+  width: 100%;               /* responsivo */
+  max-width: 800px;          /* limite de largura em telas grandes */
+  height: 350px;             /* altura fixa */
+}
