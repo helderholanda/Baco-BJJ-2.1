@@ -1,175 +1,204 @@
-/* ====== RESET ====== */
-* {
+/* Importa as fontes */
+@import url('https://fonts.googleapis.com/css2?family=Baskervville+SC:wght@400..700&family=Diplomata+SC&display=swap');
+
+/* Títulos */
+h1, h2, h3 {
+  font-family: 'Diplomata SC', cursive;
+  margin: 0;
+  display: flex;               
+  align-items: center;         
+  justify-content: center;     
+  gap: 12px;                   
+  font-size: 2rem;              
+  flex-wrap: wrap;             
+  text-align: center;
+}
+
+/* Logos antes e depois do título */
+h1 img.logo-titulo {
+  width: 55px;
+  height: 55px;
+}
+
+/* Corpo */
+body {
+  font-family: 'Baskervville SC', serif;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-body {
-  background-color: #f5f5f5;
-  color: #333;
+  background: #0b3d0b;
+  text-align: center;
+  color: #fff;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* ====== TELAS ====== */
+/* Header */
+header {
+  background: rgba(0,0,0,0.8);
+  color: #ff0000;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Footer fixo no rodapé */
+footer {
+  margin-top: auto;
+  padding: 12px;
+  background: #000;
+  color: #ff0000;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Telas */
 .tela {
   display: none;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .tela.ativa {
   display: block;
 }
 
-/* ====== TÍTULOS ====== */
-h1, h2, h3 {
-  margin-bottom: 10px;
-}
-
-/* ====== FORMULÁRIOS ====== */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 500px;
-  margin: auto;
-}
-
-input, select, textarea {
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
+/* Logo grande da tela de login */
+.logo-container {
+  margin: 30px 0;
+  display: flex;                 
+  justify-content: center;
+  align-items: center;
   width: 100%;
 }
 
+.logo-grande {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;                
+}
+
+/* Foto da equipe */
+.foto-equipe {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  margin: 15px auto;             
+  display: block;
+}
+
+/* Botões */
 button {
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  background-color: #333;
-  color: #fff;
+  display: block;
+  margin: 15px auto;
+  padding: 16px;
   font-size: 1rem;
-  transition: all 0.2s;
+  border: none;
+  background: #000;
+  color: #ff0000;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 90%;
+  max-width: 350px;
+  transition: background 0.2s ease;
+  font-family: 'Baskervville SC', serif;
 }
 
 button:hover {
-  background-color: #555;
+  background: #222;
 }
 
-/* ====== BADGE DE FAIXA ====== */
-#badgeFaixa {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-weight: bold;
-  margin-left: 10px;
-}
-
-/* ====== LISTAS ====== */
+/* Listas */
 ul {
   list-style: none;
   padding: 0;
 }
 
-ul li {
-  background-color: #fff;
-  padding: 8px;
-  margin-bottom: 5px;
-  border-radius: 4px;
+li {
+  background: #1c1c1c;
+  margin: 8px 0;
+  padding: 12px;
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-/* ====== CHECKBOX ====== */
-input[type="checkbox"] {
-  margin-right: 8px;
-  transform: scale(1.2);
-}
-
-/* ====== MENU ====== */
-.menu {
-  display: flex;
+  color: #fff;
   flex-wrap: wrap;
+  text-align: left;
+  font-family: 'Baskervville SC', serif;
+}
+
+/* Inputs */
+textarea, input, select {
+  width: 95%;
+  max-width: 400px;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  margin-bottom: 12px;
+  background: #111;
+  color: #ff0000;
+  box-sizing: border-box;
+  font-family: 'Baskervville SC', serif;
+}
+
+/* Linha graduação + badge */
+.linha-grad {
+  display: flex;
   gap: 10px;
   justify-content: center;
-  margin-bottom: 20px;
+  align-items: center;
 }
 
-/* ====== BOTÕES DE TURMA ====== */
-.turma-btn {
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: 1px solid #333;
-  background-color: #fff;
-  font-weight: bold;
-  transition: all 0.2s;
-}
-
-.turma-btn:hover {
-  background-color: #333;
+.badge-faixa {
+  display: inline-block;
+  min-width: 90px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #333;
   color: #fff;
+  font-weight: bold;
+  border: 1px solid rgba(255,255,255,0.2);
 }
 
-/* ====== PDF TEXTAREA ====== */
-#texto-relatorio {
-  width: 100%;
-  min-height: 150px;
-  resize: vertical;
+/* Ajustes para imagens e iframes */
+img, iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
-/* ====== RESPONSIVO ====== */
-@media (max-width: 600px) {
-  form, .menu {
-    width: 100%;
-    flex-direction: column;
+/* Responsividade */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.6rem;
+  }
+  h1 img.logo-titulo {
+    width: 45px;
+    height: 45px;
+  }
+  button {
+    font-size: 0.95rem;
+    padding: 14px;
   }
 }
 
-/* ====== CORES DAS FAIXAS ====== */
-.faixa-branca { background-color: #FFFFFF; color: #B00000; }
-.faixa-cinza   { background-color: #808080; color: #FFFFFF; }
-.faixa-amarela { background-color: #FFD700; color: #000; }
-.faixa-laranja { background-color: #FFA500; color: #000; }
-.faixa-verde   { background-color: #008000; color: #FFF; }
-.faixa-azul    { background-color: #0000FF; color: #FFF; }
-.faixa-roxa    { background-color: #6A0DAD; color: #FFF; }
-.faixa-marrom  { background-color: #7B3F00; color: #FFF; }
-.faixa-preta   { background-color: #000000; color: #FFF; }
-
-/* ====== ALERTAS ====== */
-.alert {
-  padding: 10px;
-  border-radius: 4px;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-/* ====== LINKS ====== */
-a {
-  color: #333;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* ====== CHAMADA ====== */
-#lista-alunos li label {
-  display: flex;
-  align-items: center;
-  flex: 1;
-}
-
-/* ====== BOTÃO CANCELAR ====== */
-#btnCancelarEdicao {
-  background-color: #aaa;
-}
-
-#btnCancelarEdicao:hover {
-  background-color: #888;
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.4rem;
+  }
+  h1 img.logo-titulo {
+    width: 40px;
+    height: 40px;
+  }
+  button {
+    font-size: 0.9rem;
+    padding: 12px;
+  }
 }
