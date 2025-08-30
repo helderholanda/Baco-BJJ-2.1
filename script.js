@@ -185,6 +185,8 @@ function login(u,s){
 // ====== CHAMADA COM SENHA ======
 function abrirChamada(turma){
   const senhaInput = document.getElementById("senhaTurma")?.value || "";
+
+  // Apenas valida se o usuário não for master
   if(usuarioAtual.nivel!=="master" && SENHAS_TURMAS[turma] !== senhaInput){
     alert("Senha da turma incorreta!");
     return;
