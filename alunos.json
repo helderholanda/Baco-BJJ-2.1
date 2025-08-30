@@ -1,0 +1,26 @@
+[
+  {
+    "nome": "Murilo Maggione",
+    "responsavel": "Patricia Maggione",
+    "dataNascimento": "2007-08-29",
+    "telefone": "67991268360",
+    "telefoneResponsavel": "",
+    "email": "",
+    "turma": "Graduados",
+    "graduacao": "Azul",
+    "grau": 1,
+    "dataMatricula": "28/08/2025"
+  },
+  {
+    "nome": "Helder Gomes de Holanda",
+    "responsavel": "",
+    "dataNascimento": "1989-08-22",
+    "telefone": "67996088225",
+    "telefoneResponsavel": "",
+    "email": "heldergomesholanda@gmail.com",
+    "turma": "Graduados",
+    "graduacao": "Preta",
+    "grau": 0,
+    "dataMatricula": "28/08/2025"
+  }
+]

@@ -1,0 +1,204 @@
+/* Importa as fontes */
+@import url('https://fonts.googleapis.com/css2?family=Baskervville+SC:wght@400..700&family=Diplomata+SC&display=swap');
+
+/* Títulos */
+h1, h2, h3 {
+  font-family: 'Diplomata SC', cursive;
+  margin: 0;
+  display: flex;               
+  align-items: center;         
+  justify-content: center;     
+  gap: 12px;                   
+  font-size: 2rem;              
+  flex-wrap: wrap;             
+  text-align: center;
+}
+
+/* Logos antes e depois do título */
+h1 img.logo-titulo {
+  width: 55px;
+  height: 55px;
+}
+
+/* Corpo */
+body {
+  font-family: 'Baskervville SC', serif;
+  margin: 0;
+  padding: 0;
+  background: #0b3d0b;
+  text-align: center;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+header {
+  background: rgba(0,0,0,0.8);
+  color: #ff0000;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Footer fixo no rodapé */
+footer {
+  margin-top: auto;
+  padding: 12px;
+  background: #000;
+  color: #ff0000;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Telas */
+.tela {
+  display: none;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.tela.ativa {
+  display: block;
+}
+
+/* Logo grande da tela de login */
+.logo-container {
+  margin: 30px 0;
+  display: flex;                 
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.logo-grande {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;                
+}
+
+/* Foto da equipe */
+.foto-equipe {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  margin: 15px auto;             
+  display: block;
+}
+
+/* Botões */
+button {
+  display: block;
+  margin: 15px auto;
+  padding: 16px;
+  font-size: 1rem;
+  border: none;
+  background: #000;
+  color: #ff0000;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 90%;
+  max-width: 350px;
+  transition: background 0.2s ease;
+  font-family: 'Baskervville SC', serif;
+}
+
+button:hover {
+  background: #222;
+}
+
+/* Listas */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: #1c1c1c;
+  margin: 8px 0;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  flex-wrap: wrap;
+  text-align: left;
+  font-family: 'Baskervville SC', serif;
+}
+
+/* Inputs */
+textarea, input, select {
+  width: 95%;
+  max-width: 400px;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  margin-bottom: 12px;
+  background: #111;
+  color: #ff0000;
+  box-sizing: border-box;
+  font-family: 'Baskervville SC', serif;
+}
+
+/* Linha graduação + badge */
+.linha-grad {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.badge-faixa {
+  display: inline-block;
+  min-width: 90px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #333;
+  color: #fff;
+  font-weight: bold;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Ajustes para imagens e iframes */
+img, iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.6rem;
+  }
+  h1 img.logo-titulo {
+    width: 45px;
+    height: 45px;
+  }
+  button {
+    font-size: 0.95rem;
+    padding: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.4rem;
+  }
+  h1 img.logo-titulo {
+    width: 40px;
+    height: 40px;
+  }
+  button {
+    font-size: 0.9rem;
+    padding: 12px;
+  }
+}

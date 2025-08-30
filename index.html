@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Baco BJJ</title>
+
+  <!-- Manifest e tema -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0b3d0b" />
+
+  <!-- Ícone/Favicon -->
+  <link rel="icon" type="image/png" href="logo.png" />
+
+  <!-- Fontes Google -->
+  <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC:wght@400..700&family=Diplomata+SC&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    h1, h2, h3 { font-family: 'Diplomata SC', cursive; }
+  </style>
+
+  <!-- Libs para PDF e Tabelas -->
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+</head>
+<body>
+  <!-- Tela de login -->
+  <section id="tela-login" class="tela ativa">
+    <div class="logo-container">
+      <img src="logo.png" alt="Logo Baco BJJ" class="logo-grande" />
+    </div>
+    <div class="login-box">
+      <input type="text" id="usuario" placeholder="Usuário" />
+      <input type="password" id="senha" placeholder="Senha" />
+      <button id="btnLogin">Entrar</button>
+      <button id="btnVisitante">Entrar como Visitante</button>
+    </div>
+  </section>
+
+  <!-- Tela inicial logado -->
+  <section id="tela-inicial-logado" class="tela">
+    <header>
+      <h1>
+        <img src="logo.png" class="logo-titulo" alt="Logo"/>
+        Baco BJJ
+        <img src="logo.png" class="logo-titulo" alt="Logo"/>
+      </h1>
+    </header>
+    <main>
+      <button onclick="mostrarTela('menuChamada')">Chamada</button>
+      <button id="btnMenuAlunos" onclick="mostrarTela('menuAlunos')" style="display:none;">Alunos</button>
+      <button onclick="enviarSugestao()">Sugestões</button>
+      <button id="btnInstalarApp" style="display:none;">Instalar App</button>
+    </main>
+  </section>
+
+  <!-- Tela visitante -->
+  <section id="tela-inicial-visitante" class="tela">
+    <header>
+      <h1>
+        <img src="logo.png" class="logo-titulo" alt="Logo"/>
+        Bem Vindo Ao Baco, OSS!
+        <img src="logo.png" class="logo-titulo" alt="Logo"/>
+      </h1>
+    </header>
+    <main>
+      <img src="equipe1.jpg" alt="Equipe Baco BJJ" class="foto-equipe" />
+      <button onclick="mostrarTela('quemSomos')">Quem Somos</button>
+      <button onclick="abrirInstagram()">Instagram</button>
+      <div class="mapa-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3707.1790216650966!2d-57.876796299999995!3d-21.695771399999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x947aeee73408dafb%3A0xefead8b16579cbba!2sR.%20Salim%20Cafure%20Filho%2C%20130%20-%20Florestal%2C%20Porto%20Murtinho%20-%20MS%2C%2079280-000!5e0!3m2!1sen!2sbr!4v1756486956328!5m2!1sen!2sbr"
+          width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </main>
+  </section>
+
+  <!-- Quem Somos -->
+  <section id="quemSomos" class="tela">
+    <header>
+      <h1>
+        <img src="logo.png" class="logo-titulo" alt="Logo"/>
+        Quem Somos
+        <img src="logo.png" class="logo-titulo" alt="Logo"/>
+      </h1>
+    </header>
+    <main>
+      <p>
+        Somos uma escola de Jiu-Jitsu dedicada a formar atletas e cidadãos
+        através da disciplina, respeito e dedicação. Nosso objetivo é ensinar a
+        arte suave para todas as idades, promovendo saúde, confiança e espírito
+        de equipe.
+      </p>
+      <button onclick="voltarInicio()">Voltar</button>
+    </main>
+  </section>
+
+  <!-- Menu Chamada -->
+  <section id="menuChamada" class="tela">
+    <header>
+      <h1>
+        <img src="logo.png" class="logo-titulo" alt="Logo"/>
+        Chamada
+        <img src="logo.png" class="logo-titulo" alt="Logo"/>
+      </h1>
+    </header>
+    <main>
+      <button onclick="abrirChamada('Iniciantes')">Iniciantes</button>
+      <button onclick="abrirChamada('Intermediarios')">Intermediários</button>
+      <button onclick="abrirChamada('Graduados')">Graduados</button>
+      <button onclick="voltarInicio()">Voltar</button>
+    </main>
+  </section>
+
+  <!-- Tela Chamada -->
+  <section id="chamada" class="tela">
+    <header>
+      <h1 id="tituloChamada">
+        <img src="logo.png" class="logo-titulo" alt="Logo"/>
+        Registro de Presença
+        <img src="logo.png" class="logo-titulo" alt="Logo"/>
+      </h1>
+    </header>
+    <main>
+      <ul id="lista-alunos"></ul>
+      <h2>Relatório</h2>
+      <textarea id="texto-relatorio" placeholder="Digite algum relatório ou observação do treino..."></textarea>
+      <button id="salvarChamada">Salvar e enviar por e-mail</button>
+      <button onclick="voltarInicio()">Voltar</button>
+    </main>
+  </section>
+
+  <!-- Menu Alunos -->
+  <section id="menuAlunos" class="tela">
+    <header>
+      <h1>
+        <img src="logo.png" class="logo-titulo" alt="Logo"/>
+        Alunos
+        <img src="logo.png" class="logo-titulo" alt="Logo"/>
+      </h1>
+    </header>
+    <main>
+      <button id="btnNovoAluno" onclick="mostrarTela('novoAluno')">Novo Aluno</button>
+      <button id="btnPesquisarAluno" onclick="mostrarTela('pesquisarAluno')">Pesquisar / Editar</button>
+      <button id="btnRelatorioAlocados" onclick="gerarRelatorioAlocadosPDF()">Relatório de Estudantes Alocados</button>
+      <button id="btnRelatorioGeral" onclick="gerarRelatorioGeralPDF()">Relatório Geral</button>
+      <button onclick="voltarInicio()">Voltar</button>
+    </main>
+  </section>
+
+  <!-- Cadastro / Edição Aluno -->
+  <section id="novoAluno" class="tela">
+    <header>
+      <h1>
+        <img src="logo.png" class="logo-titulo" alt="Logo"/>
+        Cadastro / Edição de Aluno
+        <img src="logo.png" class="logo-titulo" alt="Logo"/>
+      </h1>
+    </header>
+    <main>
+      <input type="text" id="alunoNome" placeholder="Nome completo" />
+      <input type="text" id="responsavel" placeholder="Responsável" />
+      <input type="date" id="dataNascimento" placeholder="Data de nascimento" />
+      <input type="text" id="telefone" placeholder="Telefone" />
+      <input type="text" id="telefoneResponsavel" placeholder="Telefone do responsável" />
+      <input type="email" id="email" placeholder="E-mail" />
+      <select id="turma">
+        <option value="">Selecione a turma</option>
+        <option value="Iniciantes">Iniciantes</option>
+        <option value="Intermediarios">Intermediários</option>
+        <option value="Graduados">Graduados</option>
+      </select>
+      <div class="linha-grad">
+        <select id="graduacao"></select>
+        <span id="badgeFaixa" class="badge-faixa">Faixa</span>
+      </div>
+      <select id="grau">
+        <option value="0">Grau 0</option>
+        <option value="1">Grau 1</option>
+        <option value="2">Grau 2</option>
+        <option value="3">Grau 3</option>
+        <option value="4">Grau 4</option>
+      </select>
+      <div class="botoes-form">
+        <button id="btnSalvarAluno">Salvar</button>
+        <button id="btnCancelarEdicao" type="button" onclick="cancelarEdicao()" style="display:none;">Cancelar edição</button>
+        <button onclick="mostrarTela('menuAlunos')">Voltar</button>
+      </div>
+    </main>
+  </section>
+
+  <!-- Pesquisa / Edição Aluno -->
+  <section id="pesquisarAluno" class="tela">
+    <header>
+      <h1>
+        <img src="logo.png" class="logo-titulo" alt="Logo"/>
+        Pesquisar / Editar
+        <img src="logo.png" class="logo-titulo" alt="Logo"/>
+      </h1>
+    </header>
+    <main>
+      <div style="display:flex; justify-content:center; gap:8px; align-items:center;">
+        <input type="text" id="buscarAluno" placeholder="Digite o nome do aluno" />
+        <button id="btnExecutarPesquisa">Pesquisar</button>
+      </div>
+      <ul id="lista-pesquisa"></ul>
+      <div id="detalhes-aluno"></div>
+      <button onclick="mostrarTela('menuAlunos')">Voltar</button>
+    </main>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Baco BJJ - By Helder Holanda</p>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
