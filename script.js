@@ -78,7 +78,11 @@ async function carregarAlunosInicial(){
         rebuildTurmas();
       }
     }
-  }catch(e){ console.warn("Não foi possível carregar alunos.json:",e); }
+  }catch(e){ 
+    console.warn("Não foi possível carregar alunos.json:",e);
+    // fallback: localStorage já carregado
+    rebuildTurmas();
+  }
 }
 
 function normalizarAluno(a){
@@ -184,35 +188,30 @@ function login(u,s){
 
 // ====== CHAMADA COM PROMPT DE SENHA ======
 function abrirChamada(turma){
-  // Usuário master não precisa de senha
   if(usuarioAtual.nivel !== "master"){
     let senhaValida = false;
     let tentativa = "";
     while(!senhaValida){
       tentativa = prompt(`Digite a senha da turma "${turma}":`);
-      if(tentativa === null) return; // Cancelou
+      if(tentativa === null) return;
       if(tentativa === SENHAS_TURMAS[turma]){
         senhaValida = true;
-      } else {
-        alert("Senha incorreta! Tente novamente.");
-      }
+      } else alert("Senha incorreta! Tente novamente.");
     }
   }
 
   turmaAtual = turma;
+  rebuildTurmas();
   const lista = document.getElementById("lista-alunos");
   lista.innerHTML = "";
 
-  rebuildTurmas();
   document.getElementById("tituloChamada").textContent = `Registro de Presença — ${turma}`;
-
   const ta = document.getElementById("texto-relatorio");
   if(ta) ta.value = "";
 
-  (turmas[turma]||[]).forEach(a=>{
-    const globalIndex = alunos.findIndex(x=>x.nome === a.nome && x.telefone === a.telefone);
+  (turmas[turma]||[]).forEach((a,index)=>{
     const li = document.createElement("li");
-    li.innerHTML = `<label style="flex:1"><input type="checkbox" data-global-index="${globalIndex}" data-nome="${a.nome}" /> <span>${a.nome} (${a.graduacao})</span></label>`;
+    li.innerHTML = `<label style="flex:1"><input type="checkbox" data-global-index="${alunos.indexOf(a)}" data-nome="${a.nome}" /> <span>${a.nome} (${a.graduacao})</span></label>`;
     lista.appendChild(li);
   });
   mostrarTela("chamada");
@@ -236,7 +235,7 @@ function salvarAluno(){
     telefoneResponsavel: document.getElementById("telefoneResponsavel").value.trim(),
     email: document.getElementById("email").value.trim(),
     turma: document.getElementById("turma").value,
-    graduacao: document.getElementById("graduacao").value,
+    graduacao: document.getElementById("graduacao").value||"Branca",
     grau: parseInt(document.getElementById("grau").value) || 0,
     dataMatricula: new Date().toLocaleDateString("pt-BR")
   };
@@ -282,7 +281,7 @@ function pesquisarAluno(){
   const lista = document.getElementById("lista-pesquisa");
   lista.innerHTML = "";
   const resultados = alunos.filter(a=>a.nome.toLowerCase().includes(busca));
-  resultados.forEach((a,i)=>{
+  resultados.forEach(a=>{
     const li = document.createElement("li");
     li.innerHTML = `<span>${a.nome} (${a.turma} - ${a.graduacao})</span> 
       <button onclick="editarAluno(${alunos.indexOf(a)})">Editar</button>`;
@@ -306,12 +305,14 @@ function gerarRelatorioAlocadosPDF(){
   const doc = new jspdf.jsPDF();
   doc.setFontSize(16);
   doc.text("Relatório de Alunos Alocados por Turma", 14, 20);
-  Object.keys(turmas).forEach((t,i)=>{
+  let startY = 30;
+  Object.keys(turmas).forEach(t=>{
     doc.setFontSize(14);
-    doc.text(`Turma: ${t}`, 14, 30+i*10);
+    doc.text(`Turma: ${t}`, 14, startY);
     const col = ["Nome","Graduação","Grau"];
     const rows = turmas[t].map(a=>[a.nome,a.graduacao,a.grau]);
-    doc.autoTable({ head:[col], body:rows, startY:40+i*10 });
+    doc.autoTable({ head:[col], body:rows, startY:startY+10 });
+    startY += 30 + turmas[t].length*10;
   });
   doc.save("Relatorio_Alocados_Alunos.pdf");
 }
@@ -344,7 +345,6 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   await carregarAlunosInicial();
   aplicarPermissoes();
 
-  // Login
   document.getElementById("btnLogin")?.addEventListener("click",()=>{
     const u = document.getElementById("usuario").value.trim();
     const s = document.getElementById("senha").value.trim();
@@ -357,7 +357,6 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     mostrarTela("tela-inicial-visitante");
   });
 
-  // Aluno
   document.getElementById("btnSalvarAluno")?.addEventListener("click", salvarAluno);
   document.getElementById("graduacao")?.addEventListener("change", atualizarBadgeFaixa);
   document.getElementById("btnExecutarPesquisa")?.addEventListener("click", pesquisarAluno);
