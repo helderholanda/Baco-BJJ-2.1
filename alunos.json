@@ -7,6 +7,8 @@
     "telefoneResponsavel": "",
     "email": "",
     "turma": "Graduados",
+    "graduacao": "",
+    "grau": 0,
     "dataMatricula": "28/08/2025"
   },
   {
@@ -22,11 +24,11 @@
     "dataMatricula": "30/08/2025"
   },
   {
-    "nome": "OTÁVIO MONTEIRO MELO",
-    "responsavel": "DIOGO JUNIOR MELO DOS SANTOS",
+    "nome": "Otávio Monteiro Melo",
+    "responsavel": "Diogo Junior Melo dos Santos",
     "dataNascimento": "2010-04-13",
-    "telefone": "92 99200-9682",
-    "telefoneResponsavel": "92 98148-1984",
+    "telefone": "92992009682",
+    "telefoneResponsavel": "92981481984",
     "email": "otaviomelo1310@gmail.com",
     "turma": "Intermediarios",
     "graduacao": "Amarela",
@@ -34,11 +36,11 @@
     "dataMatricula": "30/08/2025"
   },
   {
-    "nome": "Alexandre Mendoza Da Rosa",
+    "nome": "Alexandre Mendoza da Rosa",
     "responsavel": "Virgínia Candelária Mendoza Bedoya",
     "dataNascimento": "2008-02-15",
-    "telefone": "67 998627003",
-    "telefoneResponsavel": "67 99965-0783",
+    "telefone": "67998627003",
+    "telefoneResponsavel": "679999650783",
     "email": "alexandremendonza777@gmail.com",
     "turma": "Intermediarios",
     "graduacao": "Branca",
@@ -46,7 +48,7 @@
     "dataMatricula": "30/08/2025"
   },
   {
-    "nome": "Camila manoella Nunes acosta",
+    "nome": "Camila Manoella Nunes Acosta",
     "responsavel": "Cleuza Espíndola Nunes",
     "dataNascimento": "2016-05-02",
     "telefone": "67996088789",
@@ -58,8 +60,8 @@
     "dataMatricula": "30/08/2025"
   },
   {
-    "nome": "Welisson mendonça leite",
-    "responsavel": "Sebastiana mendonça",
+    "nome": "Welisson Mendonça Leite",
+    "responsavel": "Sebastiana Mendonça",
     "dataNascimento": "2012-03-06",
     "telefone": "67991330025",
     "telefoneResponsavel": "6784832672",
@@ -71,7 +73,7 @@
   },
   {
     "nome": "Yany Nicolly Roman A.",
-    "responsavel": "Adriana ramirez roman",
+    "responsavel": "Adriana Ramirez Roman",
     "dataNascimento": "2011-10-21",
     "telefone": "67999151503",
     "telefoneResponsavel": "67999151503",
@@ -97,7 +99,7 @@
     "nome": "José Alves da Silva Junior",
     "responsavel": "",
     "dataNascimento": "1984-06-17",
-    "telefone": "(67)9 96524098",
+    "telefone": "67996524098",
     "telefoneResponsavel": "",
     "email": "juka.alves@hotmail.com",
     "turma": "Graduados",
@@ -106,7 +108,7 @@
     "dataMatricula": "30/08/2025"
   },
   {
-    "nome": "Jhonatan Renan Duarte de paula",
+    "nome": "Jhonatan Renan Duarte de Paula",
     "responsavel": "Katiane Duarte Schulz",
     "dataNascimento": "2017-11-07",
     "telefone": "67984220571",
@@ -118,8 +120,8 @@
     "dataMatricula": "30/08/2025"
   },
   {
-    "nome": "OTAVIO JUNIOR NUNES MAIDANA",
-    "responsavel": "SUELY ESPINDOLA NUNES",
+    "nome": "Otávio Junior Nunes Maidana",
+    "responsavel": "Suely Espíndola Nunes",
     "dataNascimento": "2017-03-30",
     "telefone": "981869535",
     "telefoneResponsavel": "981869535",
@@ -133,7 +135,7 @@
     "nome": "Maria Eduarda Leiva Benitez",
     "responsavel": "",
     "dataNascimento": "2007-05-19",
-    "telefone": "679914-0036",
+    "telefone": "6799140036",
     "telefoneResponsavel": "",
     "email": "m63098354@gmail.com",
     "turma": "Iniciantes",
@@ -145,7 +147,7 @@
     "nome": "Talitha Coronel",
     "responsavel": "",
     "dataNascimento": "1999-07-05",
-    "telefone": "(67) 98453-1842",
+    "telefone": "679984531842",
     "telefoneResponsavel": "",
     "email": "talithacoronel@gmail.com",
     "turma": "Iniciantes",
