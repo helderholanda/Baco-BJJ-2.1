@@ -182,14 +182,21 @@ function login(u,s){
   } else alert("Usuário ou senha incorretos!");
 }
 
-// ====== CHAMADA COM SENHA ======
+// ====== CHAMADA COM PROMPT DE SENHA ======
 function abrirChamada(turma){
-  const senhaInput = document.getElementById("senhaTurma")?.value || "";
-
-  // Apenas valida se o usuário não for master
-  if(usuarioAtual.nivel!=="master" && SENHAS_TURMAS[turma] !== senhaInput){
-    alert("Senha da turma incorreta!");
-    return;
+  // Usuário master não precisa de senha
+  if(usuarioAtual.nivel !== "master"){
+    let senhaValida = false;
+    let tentativa = "";
+    while(!senhaValida){
+      tentativa = prompt(`Digite a senha da turma "${turma}":`);
+      if(tentativa === null) return; // Cancelou
+      if(tentativa === SENHAS_TURMAS[turma]){
+        senhaValida = true;
+      } else {
+        alert("Senha incorreta! Tente novamente.");
+      }
+    }
   }
 
   turmaAtual = turma;
