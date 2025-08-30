@@ -40,6 +40,7 @@ function getFaixaColor(nome){
   const f = FAIXAS.find(x=>x.nome===nome);
   return f ? f.cor : "#333";
 }
+
 function getTextoContraste(bgHex){
   const hex = bgHex.replace("#","").padStart(6,"0");
   const r = parseInt(hex.substring(0,2),16);
@@ -210,68 +211,105 @@ function abrirChamada(turma){
 
 function limparChamadaUI(){
   document.querySelectorAll("#lista-alunos input[type=checkbox]").forEach(cb=>cb.checked=false);
-  const ta = document.getElementById("texto-relatorio");
-  if(ta) ta.value = "";
+  document.getElementById("texto-relatorio").value="";
 }
 
-function salvarChamada(){
-  const boxes = Array.from(document.querySelectorAll("#lista-alunos input[type=checkbox]"));
-  const presentes = boxes.filter(b=>b.checked).map(b=>b.dataset.nome);
-  const report = document.getElementById("texto-relatorio")?.value || "";
-  const data = new Date().toLocaleString();
-
-  const assunto = encodeURIComponent(`Chamada - ${turmaAtual} - ${data}`);
-  let corpo = `Academia: ${ACADEMIA.nome}%0D%0ATurma: ${turmaAtual}%0D%0AData: ${data}%0D%0A%0D%0APresentes:%0D%0A`;
-  if(presentes.length>0) corpo += presentes.map(n=>`- ${n}`).join("%0D%0A");
-  else corpo += "(Nenhum presente marcado)";
-  corpo += `%0D%0A%0D%0AObservações:%0D%0A${encodeURIComponent(report)}`;
-  const mailto = `mailto:${ACADEMIA.email}?subject=${assunto}&body=${corpo}`;
-  window.open(mailto);
-  limparChamadaUI();
-}
-
-// ====== SUGESTÕES ======
-function enviarSugestao(){
-  const assunto = encodeURIComponent(`Sugestão — ${ACADEMIA.nome}`);
-  const corpo = encodeURIComponent("Escreva aqui sua sugestão...");
-  const mailto = `mailto:${ACADEMIA.email}?subject=${assunto}&body=${corpo}`;
-  window.open(mailto);
-}
-
-// ====== CRUD ALUNOS COM DOWNLOAD JSON ======
+// ====== ALUNOS ======
 function salvarAluno(){
-  const nome = (document.getElementById("alunoNome")?.value||"").trim();
-  if(!nome){ alert("Nome é obrigatório!"); return; }
+  const nome = document.getElementById("alunoNome").value.trim();
+  if(!nome) { alert("Nome obrigatório"); return; }
 
-  const aluno = {
-    nome,
-    responsavel: document.getElementById("responsavel")?.value||"",
-    dataNascimento: document.getElementById("dataNascimento")?.value||"",
-    telefone: document.getElementById("telefone")?.value||"",
-    telefoneResponsavel: document.getElementById("telefoneResponsavel")?.value||"",
-    email: document.getElementById("email")?.value||"",
-    turma: document.getElementById("turma")?.value||"",
-    graduacao: document.getElementById("graduacao")?.value||"Branca",
-    grau: parseInt(document.getElementById("grau")?.value)||0,
+  const alunoObj = {
+    nome: nome,
+    responsavel: document.getElementById("responsavel").value.trim(),
+    dataNascimento: document.getElementById("dataNascimento").value,
+    telefone: document.getElementById("telefone").value.trim(),
+    telefoneResponsavel: document.getElementById("telefoneResponsavel").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    turma: document.getElementById("turma").value,
+    graduacao: document.getElementById("graduacao").value,
+    grau: parseInt(document.getElementById("grau").value) || 0,
     dataMatricula: new Date().toLocaleDateString("pt-BR")
   };
 
   if(editIndex!==null){
-    alunos[editIndex] = aluno;
+    alunos[editIndex] = alunoObj;
     editIndex = null;
-  } else alunos.push(aluno);
+    document.getElementById("btnCancelarEdicao").style.display="none";
+  } else alunos.push(alunoObj);
 
   localStorage.setItem("alunos", JSON.stringify(alunos));
   rebuildTurmas();
-  downloadAlunosJSON();
+  mostrarTela("menuAlunos");
   alert("Aluno salvo com sucesso!");
+}
+
+function cancelarEdicao(){
+  editIndex = null;
+  document.getElementById("btnCancelarEdicao").style.display="none";
   mostrarTela("menuAlunos");
 }
 
-function cancelarEdicao(){ editIndex=null; mostrarTela("menuAlunos"); }
+function editarAluno(index){
+  const aluno = alunos[index];
+  if(!aluno) return;
+  editIndex = index;
+  document.getElementById("alunoNome").value = aluno.nome;
+  document.getElementById("responsavel").value = aluno.responsavel;
+  document.getElementById("dataNascimento").value = aluno.dataNascimento;
+  document.getElementById("telefone").value = aluno.telefone;
+  document.getElementById("telefoneResponsavel").value = aluno.telefoneResponsavel;
+  document.getElementById("email").value = aluno.email;
+  document.getElementById("turma").value = aluno.turma;
+  document.getElementById("graduacao").value = aluno.graduacao;
+  document.getElementById("grau").value = aluno.grau;
+  atualizarBadgeFaixa();
+  document.getElementById("btnCancelarEdicao").style.display="inline-block";
+  mostrarTela("novoAluno");
+}
 
+function pesquisarAluno(){
+  const busca = document.getElementById("buscarAluno").value.trim().toLowerCase();
+  const lista = document.getElementById("lista-pesquisa");
+  lista.innerHTML = "";
+  const resultados = alunos.filter(a=>a.nome.toLowerCase().includes(busca));
+  resultados.forEach((a,i)=>{
+    const li = document.createElement("li");
+    li.innerHTML = `<span>${a.nome} (${a.turma} - ${a.graduacao})</span> 
+      <button onclick="editarAluno(${alunos.indexOf(a)})">Editar</button>`;
+    lista.appendChild(li);
+  });
+}
+
+// ====== PDF ======
+function gerarRelatorioGeralPDF(){
+  const doc = new jspdf.jsPDF();
+  doc.setFontSize(16);
+  doc.text("Relatório Geral de Alunos", 14, 20);
+  const col = ["Nome","Turma","Graduação","Grau","Nascimento","Responsável","Telefone"];
+  const rows = alunos.map(a=>[a.nome,a.turma,a.graduacao,a.grau,a.dataNascimento,a.responsavel,a.telefone]);
+  doc.autoTable({ head:[col], body:rows, startY:30 });
+  doc.save("Relatorio_Geral_Alunos.pdf");
+}
+
+function gerarRelatorioAlocadosPDF(){
+  rebuildTurmas();
+  const doc = new jspdf.jsPDF();
+  doc.setFontSize(16);
+  doc.text("Relatório de Alunos Alocados por Turma", 14, 20);
+  Object.keys(turmas).forEach((t,i)=>{
+    doc.setFontSize(14);
+    doc.text(`Turma: ${t}`, 14, 30+i*10);
+    const col = ["Nome","Graduação","Grau"];
+    const rows = turmas[t].map(a=>[a.nome,a.graduacao,a.grau]);
+    doc.autoTable({ head:[col], body:rows, startY:40+i*10 });
+  });
+  doc.save("Relatorio_Alocados_Alunos.pdf");
+}
+
+// ====== JSON DOWNLOAD ======
 function downloadAlunosJSON(){
-  const blob = new Blob([JSON.stringify(alunos,null,2)],{type:"application/json"});
+  const blob = new Blob([JSON.stringify(alunos, null, 2)], {type:"application/json"});
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -280,31 +318,38 @@ function downloadAlunosJSON(){
   URL.revokeObjectURL(url);
 }
 
-// ====== INICIALIZAÇÃO ======
-window.addEventListener("DOMContentLoaded", async ()=>{
+// ====== SUGESTÃO ======
+function enviarSugestao(){
+  alert("Para enviar sugestões, envie um e-mail para: " + ACADEMIA.email);
+}
+
+// ====== INSTAGRAM ======
+function abrirInstagram(){
+  window.open(ACADEMIA.instagram,"_blank");
+}
+
+// ====== EVENTOS ======
+document.addEventListener("DOMContentLoaded", async ()=>{
   preencherSelectGraduacao();
-  carregarAlunosInicial();
+  atualizarBadgeFaixa();
+  await carregarAlunosInicial();
   aplicarPermissoes();
 
-  document.getElementById("btnLogin")?.addEventListener("click", ()=>{
-    const u = document.getElementById("usuario")?.value||"";
-    const s = document.getElementById("senha")?.value||"";
+  // Login
+  document.getElementById("btnLogin")?.addEventListener("click",()=>{
+    const u = document.getElementById("usuario").value.trim();
+    const s = document.getElementById("senha").value.trim();
     login(u,s);
   });
-
-  document.getElementById("btnVisitante")?.addEventListener("click", ()=>{
+  document.getElementById("btnVisitante")?.addEventListener("click",()=>{
     usuarioAtual = { usuario:"visitante", nivel:"visitante" };
     sessionStorage.setItem("usuarioAtual", JSON.stringify(usuarioAtual));
     aplicarPermissoes();
     mostrarTela("tela-inicial-visitante");
   });
 
-  document.getElementById("salvarChamada")?.addEventListener("click", salvarChamada);
+  // Aluno
   document.getElementById("btnSalvarAluno")?.addEventListener("click", salvarAluno);
   document.getElementById("graduacao")?.addEventListener("change", atualizarBadgeFaixa);
-
-  // Restaurar tela anterior
-  const telaAnt = sessionStorage.getItem("telaAtual");
-  if(telaAnt) mostrarTela(telaAnt);
-  else voltarInicio();
+  document.getElementById("btnExecutarPesquisa")?.addEventListener("click", pesquisarAluno);
 });
