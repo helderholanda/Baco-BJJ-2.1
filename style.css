@@ -1,106 +1,76 @@
-/* Importa as fontes */
-@import url('https://fonts.googleapis.com/css2?family=Baskervville+SC:wght@400..700&family=Diplomata+SC&display=swap');
-
-/* Títulos */
-h1, h2, h3 {
-  font-family: 'Diplomata SC', cursive;
-  margin: 0;
-  display: flex;               
-  align-items: center;         
-  justify-content: center;     
-  gap: 12px;                   
-  font-size: 2rem;              
-  flex-wrap: wrap;             
-  text-align: center;
-}
-
-/* Logos antes e depois do título */
-h1 img.logo-titulo {
-  width: 55px;
-  height: 55px;
-}
-
-/* Corpo */
-body {
-  font-family: 'Baskervville SC', serif;
+/* ====== RESET ====== */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+/* ====== Fontes ====== */
+@import url('https://fonts.googleapis.com/css2?family=Baskervville+SC:wght@400..700&family=Diplomata+SC&display=swap');
+
+/* ====== Corpo ====== */
+body {
+  font-family: 'Baskervville SC', serif;
   background: #0b3d0b;
-  text-align: center;
   color: #fff;
+  text-align: center;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Header */
-header {
-  background: rgba(0,0,0,0.8);
-  color: #ff0000;
-  padding: 15px;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
+/* ====== Títulos ====== */
+h1, h2, h3 {
+  font-family: 'Diplomata SC', cursive;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-/* Footer fixo no rodapé */
-footer {
-  margin-top: auto;
-  padding: 12px;
-  background: #000;
-  color: #ff0000;
-  font-size: 14px;
-  text-align: center;
-}
-
-/* Telas */
+/* ====== Telas ====== */
 .tela {
   display: none;
   padding: 20px;
-  box-sizing: border-box;
 }
 
 .tela.ativa {
   display: block;
 }
 
-/* Logo grande da tela de login */
+/* ====== Logo e imagens ====== */
 .logo-container {
   margin: 30px 0;
-  display: flex;                 
+  display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
 }
 
 .logo-grande {
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  max-width: 100%;
-  display: block;
-  margin: 0 auto;                
 }
 
-/* Foto da equipe */
 .foto-equipe {
   width: 100%;
   max-width: 400px;
   border-radius: 12px;
-  margin: 15px auto;             
-  display: block;
+  margin: 15px auto;
 }
 
-/* Botões */
+/* ====== Botões ====== */
 button {
   display: block;
   margin: 15px auto;
   padding: 16px;
   font-size: 1rem;
   border: none;
+  border-radius: 10px;
   background: #000;
   color: #ff0000;
-  border-radius: 10px;
   cursor: pointer;
   width: 90%;
   max-width: 350px;
@@ -112,42 +82,20 @@ button:hover {
   background: #222;
 }
 
-/* Listas */
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  background: #1c1c1c;
-  margin: 8px 0;
-  padding: 12px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff;
-  flex-wrap: wrap;
-  text-align: left;
-  font-family: 'Baskervville SC', serif;
-}
-
-/* Inputs */
-textarea, input, select {
+/* ====== Inputs e Textareas ====== */
+input, select, textarea {
   width: 95%;
   max-width: 400px;
   padding: 12px;
-  font-size: 16px;
   border-radius: 8px;
   border: 1px solid #555;
   margin-bottom: 12px;
   background: #111;
   color: #ff0000;
-  box-sizing: border-box;
   font-family: 'Baskervville SC', serif;
 }
 
-/* Linha graduação + badge */
+/* ====== Linha graduação + badge ====== */
 .linha-grad {
   display: flex;
   gap: 10px;
@@ -166,39 +114,42 @@ textarea, input, select {
   border: 1px solid rgba(255,255,255,0.2);
 }
 
-/* Ajustes para imagens e iframes */
-img, iframe {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
+/* ====== Listas ====== */
+ul {
+  list-style: none;
+  padding: 0;
 }
 
-/* Responsividade */
+li {
+  background: #1c1c1c;
+  margin: 8px 0;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  flex-wrap: wrap;
+}
+
+/* ====== Footer ====== */
+footer {
+  margin-top: auto;
+  padding: 12px;
+  background: #000;
+  color: #ff0000;
+  font-size: 14px;
+}
+
+/* ====== Responsividade ====== */
 @media (max-width: 768px) {
-  h1 {
-    font-size: 1.6rem;
-  }
-  h1 img.logo-titulo {
-    width: 45px;
-    height: 45px;
-  }
-  button {
-    font-size: 0.95rem;
-    padding: 14px;
-  }
+  h1 { font-size: 1.6rem; }
+  .logo-grande { width: 140px; height: 140px; }
+  button { font-size: 0.95rem; padding: 14px; }
 }
 
 @media (max-width: 480px) {
-  h1 {
-    font-size: 1.4rem;
-  }
-  h1 img.logo-titulo {
-    width: 40px;
-    height: 40px;
-  }
-  button {
-    font-size: 0.9rem;
-    padding: 12px;
-  }
+  h1 { font-size: 1.4rem; }
+  .logo-grande { width: 120px; height: 120px; }
+  button { font-size: 0.9rem; padding: 12px; }
 }
