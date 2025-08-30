@@ -350,17 +350,41 @@ function enviarSugestao(){
 // ====== CHAMADA EMAIL ======
 function enviarChamadaEmail(){
   const checked = Array.from(document.querySelectorAll("#lista-alunos input[type=checkbox]:checked"));
-  if(checked.length === 0){ alert("Nenhum aluno selecionado!"); return; }
+  const todos = Array.from(document.querySelectorAll("#lista-alunos input[type=checkbox]"));
 
-  const nomes = checked.map(c=>c.dataset.nome);
+  if(checked.length === 0){ 
+    alert("Nenhum aluno selecionado!"); 
+    return; 
+  }
+
+  const presentes = checked.map(c => c.dataset.nome);
+  const faltaram = todos.filter(c => !c.checked).map(c => c.dataset.nome);
+
   const rel = document.getElementById("texto-relatorio")?.value || "";
-  const assunto = encodeURIComponent(`Presença - ${turmaAtual} - ${ACADEMIA.nome}`);
-  const corpo = encodeURIComponent(`Alunos presentes:\n${nomes.join("\n")}\n\nRelatório:\n${rel}`);
-  window.location.href = `mailto:${ACADEMIA.email}?subject=${assunto}&body=${corpo}`;
+  
+  let corpo = `Relatório de chamada - Turma: ${turmaAtual}\n\n`;
+
+  corpo += "✅ Presentes:\n";
+  corpo += presentes.length > 0 ? presentes.join("\n") : "Nenhum aluno presente";
+  corpo += "\n\n";
+
+  corpo += "❌ Faltaram:\n";
+  corpo += faltaram.length > 0 ? faltaram.join("\n") : "Todos compareceram";
+  corpo += "\n\n";
+
+  if(rel.trim() !== ""){
+    corpo += "📌 Observações:\n" + rel;
+  }
+
+  const assunto = `Relatório de chamada - ${turmaAtual}`;
+
+  window.location.href = 
+    `mailto:${ACADEMIA.email}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
 
   limparChamadaUI();
   voltarInicio();
 }
+
 
 // ====== INSTALL APP ======
 window.addEventListener('beforeinstallprompt', (e) => {
