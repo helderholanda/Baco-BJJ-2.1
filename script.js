@@ -1,7 +1,7 @@
 // ====== USUÁRIOS CADASTRADOS ======
 const usuarios = [
   { usuario: "hholanda",  senha: "c4l1i3q5", nivel: "master" },
-  { usuario: "mmaggione", senha: "12345", nivel: "instrutor" },
+  { usuario: "mmaggione", senha: "270229", nivel: "instrutor" },
   { usuario: "hgodoi",    senha: "12345", nivel: "instrutor" },
   { usuario: "baco",      senha: "12345", nivel: "instrutor" }
 ];
@@ -9,8 +9,8 @@ const usuarios = [
 // ====== SENHAS POR TURMA ======
 const SENHAS_TURMAS = {
   Iniciantes: "ini123",
-  Intermediarios: "int123",
-  Graduados: "grad123"
+  Intermediarios: "270229",
+  Graduados: "270229"
 };
 
 // ====== INFOS DA ACADEMIA ======
