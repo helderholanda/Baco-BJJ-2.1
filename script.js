@@ -67,14 +67,6 @@ function rebuildTurmas(){
 }
 
 async function carregarAlunosInicial(){
-  // Prioridade: localStorage
-  const localData = JSON.parse(localStorage.getItem("alunos") || "[]");
-  if(localData.length > 0){
-    alunos = localData.map(normalizarAluno);
-    rebuildTurmas();
-    return;
-  }
-  // Tentar fetch alunos.json (GitHub Pages)
   try{
     const resp = await fetch("./alunos.json",{cache:"no-store"});
     if(resp.ok){
@@ -83,10 +75,18 @@ async function carregarAlunosInicial(){
         alunos = data.map(normalizarAluno);
         localStorage.setItem("alunos", JSON.stringify(alunos));
         rebuildTurmas();
+        return;
       }
     }
   }catch(e){
     console.warn("Não foi possível carregar alunos.json:",e);
+  }
+
+  // Fallback caso fetch falhe
+  const localData = JSON.parse(localStorage.getItem("alunos") || "[]");
+  if(localData.length > 0){
+    alunos = localData.map(normalizarAluno);
+    rebuildTurmas();
   }
 }
 
