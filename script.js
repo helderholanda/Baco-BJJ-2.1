@@ -51,7 +51,7 @@ function getTextoContraste(bgHex){
 }
 
 // ====== ESTADO GLOBAL ======
-let alunos = JSON.parse(localStorage.getItem("alunos")) || [];
+let alunos = [];
 let turmas = { Iniciantes: [], Intermediarios: [], Graduados: [] };
 let usuarioAtual = JSON.parse(sessionStorage.getItem("usuarioAtual")) || null;
 let turmaAtual = "";
@@ -67,7 +67,14 @@ function rebuildTurmas(){
 }
 
 async function carregarAlunosInicial(){
-  if(alunos.length>0){ rebuildTurmas(); return; }
+  // Prioridade: localStorage
+  const localData = JSON.parse(localStorage.getItem("alunos") || "[]");
+  if(localData.length > 0){
+    alunos = localData.map(normalizarAluno);
+    rebuildTurmas();
+    return;
+  }
+  // Tentar fetch alunos.json (GitHub Pages)
   try{
     const resp = await fetch("./alunos.json",{cache:"no-store"});
     if(resp.ok){
@@ -78,10 +85,8 @@ async function carregarAlunosInicial(){
         rebuildTurmas();
       }
     }
-  }catch(e){ 
+  }catch(e){
     console.warn("Não foi possível carregar alunos.json:",e);
-    // fallback: localStorage já carregado
-    rebuildTurmas();
   }
 }
 
@@ -186,7 +191,7 @@ function login(u,s){
   } else alert("Usuário ou senha incorretos!");
 }
 
-// ====== CHAMADA COM PROMPT DE SENHA ======
+// ====== CHAMADA ======
 function abrirChamada(turma){
   if(usuarioAtual.nivel !== "master"){
     let senhaValida = false;
@@ -196,22 +201,25 @@ function abrirChamada(turma){
       if(tentativa === null) return;
       if(tentativa === SENHAS_TURMAS[turma]){
         senhaValida = true;
-      } else alert("Senha incorreta! Tente novamente.");
+      } else {
+        alert("Senha incorreta! Tente novamente.");
+      }
     }
   }
 
   turmaAtual = turma;
-  rebuildTurmas();
   const lista = document.getElementById("lista-alunos");
   lista.innerHTML = "";
 
+  rebuildTurmas();
   document.getElementById("tituloChamada").textContent = `Registro de Presença — ${turma}`;
   const ta = document.getElementById("texto-relatorio");
   if(ta) ta.value = "";
 
-  (turmas[turma]||[]).forEach((a,index)=>{
+  (turmas[turma]||[]).forEach(a=>{
+    const globalIndex = alunos.findIndex(x=>x.nome === a.nome && x.telefone === a.telefone);
     const li = document.createElement("li");
-    li.innerHTML = `<label style="flex:1"><input type="checkbox" data-global-index="${alunos.indexOf(a)}" data-nome="${a.nome}" /> <span>${a.nome} (${a.graduacao})</span></label>`;
+    li.innerHTML = `<label style="flex:1"><input type="checkbox" data-global-index="${globalIndex}" data-nome="${a.nome}" /> <span>${a.nome} (${a.graduacao})</span></label>`;
     lista.appendChild(li);
   });
   mostrarTela("chamada");
@@ -235,7 +243,7 @@ function salvarAluno(){
     telefoneResponsavel: document.getElementById("telefoneResponsavel").value.trim(),
     email: document.getElementById("email").value.trim(),
     turma: document.getElementById("turma").value,
-    graduacao: document.getElementById("graduacao").value||"Branca",
+    graduacao: document.getElementById("graduacao").value,
     grau: parseInt(document.getElementById("grau").value) || 0,
     dataMatricula: new Date().toLocaleDateString("pt-BR")
   };
@@ -308,18 +316,19 @@ function gerarRelatorioAlocadosPDF(){
   let startY = 30;
   Object.keys(turmas).forEach(t=>{
     doc.setFontSize(14);
-    doc.text(`Turma: ${t}`, 14, startY);
+    doc.text(t,14,startY);
+    startY += 6;
     const col = ["Nome","Graduação","Grau"];
     const rows = turmas[t].map(a=>[a.nome,a.graduacao,a.grau]);
-    doc.autoTable({ head:[col], body:rows, startY:startY+10 });
-    startY += 30 + turmas[t].length*10;
+    doc.autoTable({ head:[col], body:rows, startY:startY });
+    startY += rows.length*8 + 10;
   });
-  doc.save("Relatorio_Alocados_Alunos.pdf");
+  doc.save("Relatorio_Alocados.pdf");
 }
 
-// ====== JSON DOWNLOAD ======
+// ====== DOWNLOAD JSON ======
 function downloadAlunosJSON(){
-  const blob = new Blob([JSON.stringify(alunos, null, 2)], {type:"application/json"});
+  const blob = new Blob([JSON.stringify(alunos,null,2)],{type:"application/json"});
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -330,34 +339,61 @@ function downloadAlunosJSON(){
 
 // ====== SUGESTÃO ======
 function enviarSugestao(){
-  alert("Para enviar sugestões, envie um e-mail para: " + ACADEMIA.email);
+  const msg = prompt("Digite sua sugestão:");
+  if(msg) alert("Sugestão enviada! (Simulação, não há backend)");
 }
 
-// ====== INSTAGRAM ======
-function abrirInstagram(){
-  window.open(ACADEMIA.instagram,"_blank");
-}
+// ====== INSTALL APP ======
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const btn = document.getElementById("btnInstalarApp");
+  if(btn) btn.style.display="inline-block";
+});
+document.getElementById("btnInstalarApp")?.addEventListener("click", async ()=>{
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    const choice = await deferredPrompt.userChoice;
+    deferredPrompt = null;
+  }
+});
 
-// ====== EVENTOS ======
-document.addEventListener("DOMContentLoaded", async ()=>{
+// ====== INIT ======
+window.addEventListener("DOMContentLoaded", async ()=>{
+  await carregarAlunosInicial();
   preencherSelectGraduacao();
   atualizarBadgeFaixa();
-  await carregarAlunosInicial();
+
   aplicarPermissoes();
 
-  document.getElementById("btnLogin")?.addEventListener("click",()=>{
+  if(usuarioAtual){
+    mostrarTela(usuarioAtual.nivel==="visitante"?"tela-inicial-visitante":"tela-inicial-logado");
+  } else mostrarTela("tela-login");
+
+  document.getElementById("btnLogin")?.addEventListener("click", ()=>{
     const u = document.getElementById("usuario").value.trim();
     const s = document.getElementById("senha").value.trim();
     login(u,s);
   });
-  document.getElementById("btnVisitante")?.addEventListener("click",()=>{
+  document.getElementById("btnVisitante")?.addEventListener("click", ()=>{
     usuarioAtual = { usuario:"visitante", nivel:"visitante" };
-    sessionStorage.setItem("usuarioAtual", JSON.stringify(usuarioAtual));
+    sessionStorage.setItem("usuarioAtual",JSON.stringify(usuarioAtual));
     aplicarPermissoes();
     mostrarTela("tela-inicial-visitante");
   });
 
-  document.getElementById("btnSalvarAluno")?.addEventListener("click", salvarAluno);
   document.getElementById("graduacao")?.addEventListener("change", atualizarBadgeFaixa);
+  document.getElementById("btnSalvarAluno")?.addEventListener("click", salvarAluno);
   document.getElementById("btnExecutarPesquisa")?.addEventListener("click", pesquisarAluno);
+  document.getElementById("salvarChamada")?.addEventListener("click", ()=>{
+    const checked = Array.from(document.querySelectorAll("#lista-alunos input[type=checkbox]:checked"));
+    if(checked.length===0) alert("Nenhum aluno selecionado!");
+    else {
+      const nomes = checked.map(c=>c.dataset.nome);
+      const rel = document.getElementById("texto-relatorio")?.value||"";
+      alert(`Presença marcada: ${nomes.join(", ")}\nRelatório: ${rel}\n(Simulação, não envia email)`);
+      limparChamadaUI();
+      voltarInicio();
+    }
+  });
 });
