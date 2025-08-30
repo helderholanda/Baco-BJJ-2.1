@@ -7,8 +7,6 @@
     "telefoneResponsavel": "",
     "email": "",
     "turma": "Graduados",
-    "graduacao": "Azul",
-    "grau": 1,
     "dataMatricula": "28/08/2025"
   },
   {
@@ -19,8 +17,140 @@
     "telefoneResponsavel": "",
     "email": "heldergomesholanda@gmail.com",
     "turma": "Graduados",
-    "graduacao": "Preta",
+    "graduacao": "Roxa",
+    "grau": 2,
+    "dataMatricula": "30/08/2025"
+  },
+  {
+    "nome": "OTÁVIO MONTEIRO MELO",
+    "responsavel": "DIOGO JUNIOR MELO DOS SANTOS",
+    "dataNascimento": "2010-04-13",
+    "telefone": "92 99200-9682",
+    "telefoneResponsavel": "92 98148-1984",
+    "email": "otaviomelo1310@gmail.com",
+    "turma": "Intermediarios",
+    "graduacao": "Amarela",
+    "grau": 3,
+    "dataMatricula": "30/08/2025"
+  },
+  {
+    "nome": "Alexandre Mendoza Da Rosa",
+    "responsavel": "Virgínia Candelária Mendoza Bedoya",
+    "dataNascimento": "2008-02-15",
+    "telefone": "67 998627003",
+    "telefoneResponsavel": "67 99965-0783",
+    "email": "alexandremendonza777@gmail.com",
+    "turma": "Intermediarios",
+    "graduacao": "Branca",
+    "grau": 3,
+    "dataMatricula": "30/08/2025"
+  },
+  {
+    "nome": "Camila manoella Nunes acosta",
+    "responsavel": "Cleuza Espíndola Nunes",
+    "dataNascimento": "2016-05-02",
+    "telefone": "67996088789",
+    "telefoneResponsavel": "67996088789",
+    "email": "ra3944651@gmail.com",
+    "turma": "Iniciantes",
+    "graduacao": "Branca",
     "grau": 0,
-    "dataMatricula": "28/08/2025"
+    "dataMatricula": "30/08/2025"
+  },
+  {
+    "nome": "Welisson mendonça leite",
+    "responsavel": "Sebastiana mendonça",
+    "dataNascimento": "2012-03-06",
+    "telefone": "67991330025",
+    "telefoneResponsavel": "6784832672",
+    "email": "91330025w@gmail.com",
+    "turma": "Intermediarios",
+    "graduacao": "Cinza",
+    "grau": 3,
+    "dataMatricula": "30/08/2025"
+  },
+  {
+    "nome": "Yany Nicolly Roman A.",
+    "responsavel": "Adriana ramirez roman",
+    "dataNascimento": "2011-10-21",
+    "telefone": "67999151503",
+    "telefoneResponsavel": "67999151503",
+    "email": "adrimateus636@gmail.com",
+    "turma": "Intermediarios",
+    "graduacao": "Branca",
+    "grau": 3,
+    "dataMatricula": "30/08/2025"
+  },
+  {
+    "nome": "Victor Hugo Caballero de Moraes",
+    "responsavel": "Caroline Caballero Arguelho",
+    "dataNascimento": "2017-06-15",
+    "telefone": "67999005922",
+    "telefoneResponsavel": "",
+    "email": "carolinecaballero4@gmail.com",
+    "turma": "Iniciantes",
+    "graduacao": "Branca",
+    "grau": 0,
+    "dataMatricula": "30/08/2025"
+  },
+  {
+    "nome": "José Alves da Silva Junior",
+    "responsavel": "",
+    "dataNascimento": "1984-06-17",
+    "telefone": "(67)9 96524098",
+    "telefoneResponsavel": "",
+    "email": "juka.alves@hotmail.com",
+    "turma": "Graduados",
+    "graduacao": "Azul",
+    "grau": 3,
+    "dataMatricula": "30/08/2025"
+  },
+  {
+    "nome": "Jhonatan Renan Duarte de paula",
+    "responsavel": "Katiane Duarte Schulz",
+    "dataNascimento": "2017-11-07",
+    "telefone": "67984220571",
+    "telefoneResponsavel": "67999545531",
+    "email": "katianedschulz@hotmail.com",
+    "turma": "Intermediarios",
+    "graduacao": "Branca",
+    "grau": 3,
+    "dataMatricula": "30/08/2025"
+  },
+  {
+    "nome": "OTAVIO JUNIOR NUNES MAIDANA",
+    "responsavel": "SUELY ESPINDOLA NUNES",
+    "dataNascimento": "2017-03-30",
+    "telefone": "981869535",
+    "telefoneResponsavel": "981869535",
+    "email": "Otaviojuniornunes@gmail.com",
+    "turma": "Iniciantes",
+    "graduacao": "Branca",
+    "grau": 1,
+    "dataMatricula": "30/08/2025"
+  },
+  {
+    "nome": "Maria Eduarda Leiva Benitez",
+    "responsavel": "",
+    "dataNascimento": "2007-05-19",
+    "telefone": "679914-0036",
+    "telefoneResponsavel": "",
+    "email": "m63098354@gmail.com",
+    "turma": "Iniciantes",
+    "graduacao": "Branca",
+    "grau": 0,
+    "dataMatricula": "30/08/2025"
+  },
+  {
+    "nome": "Talitha Coronel",
+    "responsavel": "",
+    "dataNascimento": "1999-07-05",
+    "telefone": "(67) 98453-1842",
+    "telefoneResponsavel": "",
+    "email": "talithacoronel@gmail.com",
+    "turma": "Iniciantes",
+    "graduacao": "Branca",
+    "grau": 3,
+    "dataMatricula": "30/08/2025"
   }
 ]
