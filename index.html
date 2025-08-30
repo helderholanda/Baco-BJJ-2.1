@@ -55,6 +55,7 @@
       <button id="btnMenuAlunos" onclick="mostrarTela('menuAlunos')" style="display:none;">Alunos</button>
       <button onclick="enviarSugestao()">Sugestões</button>
       <button id="btnInstalarApp" style="display:none;">Instalar App</button>
+      <button id="btnDownloadJSON" onclick="downloadAlunosJSON()" style="display:none;">Download Alunos.json</button>
     </main>
   </section>
 
@@ -108,6 +109,7 @@
       </h1>
     </header>
     <main>
+      <input type="password" id="senhaTurma" placeholder="Senha da turma" />
       <button onclick="abrirChamada('Iniciantes')">Iniciantes</button>
       <button onclick="abrirChamada('Intermediarios')">Intermediários</button>
       <button onclick="abrirChamada('Graduados')">Graduados</button>
